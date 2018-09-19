@@ -21,8 +21,10 @@ print("A long time ago in a galaxy far, far away..."
       "The Death Star is under attack, and now that you have what you came for, it's "
       "time to find a strategic escape!")
 
+scoreMessage = "Your score is"
+inputMessage = "\n<Press Enter to Continue...>\n"
 # prompt the user
-input("\n<Press Enter to continue...>\n")
+input(inputMessage)
 
 # show the current location
 print("You are standing in the empty control room."
@@ -30,10 +32,10 @@ print("You are standing in the empty control room."
           "There is an air duct on the wall, a back door to the room, and strange looking tool laying on the desk.")
 
 # show the current score
-print("Your score is 0.")
+print(scoreMessage + " 0")
 
 # prompt the user
-input("\n<Press Enter to continue...>\n")
+input(inputMessage)
 
 # show the current location
 print("You pick up the tool and walk to the air duct. "
@@ -41,10 +43,10 @@ print("You pick up the tool and walk to the air duct. "
       "It's dark inside, but you can just make out the path in front of you.")
 
 # show the current score
-print("Your score is 5.")
+print(scoreMessage + " 5")
 
 # same as above
-input("\n<Press Enter to continue...>\n")
+input(inputMessage)
 
 # same as above
 print("You take a right turn, and then a left."
@@ -52,10 +54,10 @@ print("You take a right turn, and then a left."
       "You use the tool to pry open the vent, then drop down into a storage closet")
 
 # same as above
-print("Your score is 10.")
+print(scoreMessage + " 10")
 
 # again...
-input("\n<Press Enter to continue...>\n")
+input(inputMessage)
 
 # again...
 print("Inside you find storm-trooper uniforms!"
@@ -63,20 +65,20 @@ print("Inside you find storm-trooper uniforms!"
       "of stormtroopers outside.")
 
 # again...
-print("Your score is 15.")
+print(scoreMessage + " 15")
 
 # yet again...
-input("\n<Press Enter to continue...>\n")
+input(inputMessage)
 
 # yet again...
 print("You take a left turn, then a right and find your way to the ship's vehicle storage."
       "There are Rebels and Storm-troopers fighting closeby, but you jump into a nearby tie fighter.")
 
 # yet again...
-print("Your score is 20.")
+print(scoreMessage + " 20")
 
 # one last time...
-input("\n<Press Enter to continue...>\n")
+input(inputMessage)
 
 # show game ending
 print("You turn the key and start the engine, flying away from the vessel."
