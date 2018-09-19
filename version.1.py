@@ -21,8 +21,14 @@ print("A long time ago in a galaxy far, far away..."
       "The Death Star is under attack, and now that you have what you came for, it's "
       "time to find a strategic escape!")
 
-scoreMessage = "Your score is"
+scoreMessage = "Your score is "
 inputMessage = "\n<Press Enter to Continue...>\n"
+score = 0;
+
+# this function shows the current score
+def printScore():
+	print(scoreMessage + str(score))
+
 # prompt the user
 input(inputMessage)
 
@@ -32,7 +38,7 @@ print("You are standing in the empty control room."
           "There is an air duct on the wall, a back door to the room, and strange looking tool laying on the desk.")
 
 # show the current score
-print(scoreMessage + " 0")
+printScore()
 
 # prompt the user
 input(inputMessage)
@@ -42,8 +48,9 @@ print("You pick up the tool and walk to the air duct. "
       "Using the tool, you pry the vent from the duct."
       "It's dark inside, but you can just make out the path in front of you.")
 
-# show the current score
-print(scoreMessage + " 5")
+# update the score
+score = score + 5
+print(scoreMessage + str(score))
 
 # same as above
 input(inputMessage)
@@ -54,7 +61,8 @@ print("You take a right turn, and then a left."
       "You use the tool to pry open the vent, then drop down into a storage closet")
 
 # same as above
-print(scoreMessage + " 10")
+score = score + 5
+print(scoreMessage + str(score))
 
 # again...
 input(inputMessage)
@@ -65,7 +73,8 @@ print("Inside you find storm-trooper uniforms!"
       "of stormtroopers outside.")
 
 # again...
-print(scoreMessage + " 15")
+score = score + 5
+print(scoreMessage + str(score))
 
 # yet again...
 input(inputMessage)
@@ -75,7 +84,8 @@ print("You take a left turn, then a right and find your way to the ship's vehicl
       "There are Rebels and Storm-troopers fighting closeby, but you jump into a nearby tie fighter.")
 
 # yet again...
-print(scoreMessage + " 20")
+score = score + 5
+print(scoreMessage + str(score))
 
 # one last time...
 input(inputMessage)
