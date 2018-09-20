@@ -6,6 +6,14 @@
 print("\ESCAPE FROM THE DEATH STAR: A STAR WARS GAME"
       "\n========\n")
 
+#player customization
+person = input("What is your name?")
+gender = input("What is your gender?")
+print(" ")
+print("Hello", person)
+print("The force is strong with you. Good luck!")
+print(" ")
+
 # show game introduction
 #for reference, this game takes place between Episodes 3 and 4
 print("A long time ago in a galaxy far, far away..."
