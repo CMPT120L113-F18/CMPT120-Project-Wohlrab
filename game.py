@@ -16,11 +16,17 @@ def playerCust():
         print("The force is strong with you. Good luck!")
         print(" ")
 
+
 # show game introduction
 #for reference, this game takes place between Episodes 3 and 4
 StarWarsMessage="A long time ago in a galaxy far, far away..."
 introductionMessage = "You are a rebel spy who has snuck aboard the Death Star in search of intel on Darth Vader's next attack. You are sure that you'll be able to take this information back to the Rebel Alliance and help destroy the Sith, who are rising to power in their creation of the Galactic Empire. As you're sneaking through the corridors of the massive space-station, the alarm sounds. You duck into a dark corner just outside the control room as dozens of storm-troopers run toward the main entrance of the ship. Now is your chance! You take this opportunityto race into the empty control room, and gather the intel you need. The Death Star is under attack, and now that you have what you came for, it's time to find a strategic escape!"
 
+def GameStart():
+        title()
+        playerCust()
+        input(StarWarsMessage)
+        input(introductionMessage)
 
 #store locales in list
 locales=["You are standing in the empty control room. There is an air duct on the south wall, a door on the west wall, and strange looking tool laying on the desk.",
@@ -34,7 +40,9 @@ locales=["You are standing in the empty control room. There is an air duct on th
 scoreMessage = "Your score is "
 inputMessage = "\n<What do you want to do next?>\n"
 
-
+def userInput():
+        givenInput = input(inputMessage).lower()
+        return givenInput
 
 score=0   
 
@@ -42,8 +50,30 @@ def printScore():
         global score
         score=score+5
         print(scoreMessage + str(score))
-        
 
+
+def printLocation():
+        if locales[0]:
+                location="Control Room"
+        elif locales[1]:
+                location="Air Duct"
+        elif locales[2]:
+                location="Uniform Closet"
+        elif locales[3]:
+                location="South Hallway"
+        elif locales[4]:
+                location="Food Closet"
+        elif locales[5]:
+                location="Hangar"
+
+def playerUpdate():
+        printScore()
+        printLocation()
+
+North=""
+East=""
+West=""
+South=""
 
 
 #Create function for each locale
@@ -120,7 +150,21 @@ def Hangar():
         global South
         South = ""
 
+def playGame():
+        Game = True
+        ControlRoom()
+        while Game:
+                input = userInput()
+                
 
-
+#end the game and show credits
+def EndGame():
+        print("Getting into the tie fighter, you turn the key and start the engine. Flying away from the vessel, you look out into space and feel hopeful for the future of the galaxy. Game over!")
+        print("\nCopyright (c) 2018 Ashley Wohlrab, Ashley.Wohlrab1@marist.edu")
 
        
+def main():
+        GameStart()
+        playGame()
+        EndGame()
+main()
