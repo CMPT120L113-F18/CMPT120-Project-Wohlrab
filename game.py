@@ -155,7 +155,47 @@ def playGame():
         ControlRoom()
         while Game:
                 input = userInput()
-                
+                if input == "north":
+                        if North == "Control Room":
+                                ControlRoom()
+                        elif North == "Air Duct":
+                                AirDuct()
+                        elif North == "Uniform Closet":
+                                UniformCloset()
+                        else:
+                                print("You cannot go north here.")
+                elif input == "east":
+                        if East == "South Hallway":
+                                SouthHallway()
+                        elif East == "Hangar":
+                                Hangar()
+                        else:
+                                print("You cannot go east here.")
+                elif input == "west":
+                        if West == "South Hallway":
+                                SouthHallway()
+                        elif West == "Food Closet":
+                                FoodCloset()
+                        else:
+                                print("You cannot go west here.")
+                elif input == "south":
+                        if South == "Air Duct":
+                                AirDuct()
+                        elif South == "Uniform Closet":
+                                UniformCloset()
+                        elif South == "South Hallway":
+                                SouthHallway()
+                        else:
+                                print("You cannot go south here.")
+                elif input == "help":
+                        print("The valid commands are: north, south, east, west, help, and quit.")
+                elif input == "quit":
+                        break
+                else:
+                              print("The command you have entered is invalid.")
+                              continue
+
+#In current state of game, player must quit when reaching "hangar" for dialogue to flow.
 
 #end the game and show credits
 def EndGame():
