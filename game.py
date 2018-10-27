@@ -20,7 +20,7 @@ def playerCust():
 # show game introduction
 #for reference, this game takes place between Episodes 3 and 4
 StarWarsMessage="A long time ago in a galaxy far, far away..."
-print(" ")
+
 introductionMessage = "You are a rebel spy who has snuck aboard the Death Star in search of intel on Darth Vader's next attack. You are sure that you'll be able to take this information back to the Rebel Alliance and help destroy the Sith, who are rising to power in their creation of the Galactic Empire. As you're sneaking through the corridors of the massive space-station, the alarm sounds. You duck into a dark corner just outside the control room as dozens of storm-troopers run toward the main entrance of the ship. Now is your chance! You take this opportunityto race into the empty control room, and gather the intel you need. The Death Star is under attack, and now that you have what you came for, it's time to find a strategic escape!"
 
 def GameStart():
@@ -41,6 +41,8 @@ locales=["You are standing in the empty control room. There is an air duct on th
 
 locNames=["Control Room", "North Hallway", "Armory", "Air Duct", "Uniform Closet", "South Hallway", "Food Closet", "Hangar"] 
 
+hasBeen=[False, False, False, False, False, False, False, False]
+
 global loc
 loc = locNames[0]
 #Score and Input messages
@@ -53,9 +55,11 @@ def userInput():
 
 score=0   
 
-def printScore():
+def printScore(playerLocation):
         global score
-        score=score+5
+        if hasBeen[playerLocation] == False:
+                score=score+5
+                hasBeen[playerLocation] = True
         print(scoreMessage + str(score))
 
 
@@ -79,9 +83,9 @@ def printLocation():
         print("Current Location: " + str(loc) + ".")
              
 
-def playerUpdate():
+def playerUpdate(playerLocation):
         printLocation()
-        printScore()
+        printScore(playerLocation)
         
 
 North=""
@@ -103,7 +107,7 @@ def ControlRoom():
         South = "Air Duct"
         global loc
         loc = locNames[0]
-        playerUpdate()
+        playerUpdate(0)
         print(locales[0])
 
 def NorthHallway():
@@ -117,7 +121,7 @@ def NorthHallway():
         South = "Control Room"
         global loc
         loc = locNames[1]
-        playerUpdate()
+        playerUpdate(1)
         print(locales[1])
 
 def Armory():
@@ -131,7 +135,7 @@ def Armory():
         South = ""
         global loc
         loc = locNames[2]
-        playerUpdate()
+        playerUpdate(2)
         print(locales[2])
 
 
@@ -146,7 +150,7 @@ def AirDuct():
         South = "Uniform Closet"
         global loc
         loc = locNames[3]
-        playerUpdate()
+        playerUpdate(3)
         print(locales[3])
 
 def UniformCloset():
@@ -160,7 +164,7 @@ def UniformCloset():
         South = "South Hallway"
         global loc
         loc = locNames[4]
-        playerUpdate()
+        playerUpdate(4)
         print(locales[4])
 
 def SouthHallway():
@@ -174,7 +178,7 @@ def SouthHallway():
         South = ""
         global loc
         loc = locNames[5]
-        playerUpdate()
+        playerUpdate(5)
         print(locales[5])
 
 def FoodCloset():
@@ -188,7 +192,7 @@ def FoodCloset():
         South = ""
         global loc
         loc = locNames[6]
-        playerUpdate()
+        playerUpdate(6)
         print(locales[6])
 
 def Hangar():
@@ -201,8 +205,8 @@ def Hangar():
         global South
         South = ""
         global loc
-        loc = locNames[6]
-        playerUpdate()
+        loc = locNames[7]
+        playerUpdate(7)
         print(locales[7])
 
 def playGame():
