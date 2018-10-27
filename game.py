@@ -53,7 +53,9 @@ def userInput():
         givenInput = input(inputMessage).lower()
         return givenInput
 
-score=0   
+score=0
+global count
+count = -1
 
 def printScore(playerLocation):
         global score
@@ -81,11 +83,18 @@ def printLocation():
         elif locales[7]:
                 location = "Hangar"
         print("Current Location: " + str(loc) + ".")
+
+
+def printCount():
+        global count
+        count=count+1
+        print("Moves made: " + str(count))
              
 
 def playerUpdate(playerLocation):
         printLocation()
         printScore(playerLocation)
+        printCount()
         
 
 North=""
@@ -209,6 +218,7 @@ def Hangar():
         playerUpdate(7)
         print(locales[7])
 
+
 def playGame():
         Game = True
         ControlRoom()
@@ -264,6 +274,11 @@ def playGame():
                 else:
                               print("The command you have entered is invalid.")
                               continue
+                if count == 15:
+                        print("You have been caught! Game Over!")
+                        break
+                else:
+                        continue
 
 #In current state of game, player must quit when reaching "hangar" for dialogue to flow.
 
