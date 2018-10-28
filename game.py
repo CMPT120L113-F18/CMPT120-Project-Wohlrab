@@ -89,6 +89,22 @@ def printCount():
         global count
         count=count+1
         print("Moves made: " + str(count))
+
+def printMap():
+        print("        ---------------------------")
+        print("        |      North Hallway      |")
+        print("        ---------------------------")
+        print("             |             |       ")
+        print("     --------|Control Room |       ")
+        print("    | Armory |             |       ")
+        print("     -----------------------       ")
+        print("             | Air Duct |            ")
+        print("             ----------------      ")
+        print("             |Uniform Closet|      ")
+        print(" -------------------------------------")
+        print(" |Food Closet| North Hallway | Hangar |")
+        print(" --------------------------------------")
+        
              
 
 def playerUpdate(playerLocation):
@@ -268,9 +284,11 @@ def playGame():
                         else:
                                 print("You cannot go south here.")
                 elif input == "help":
-                        print("The valid commands are: north, south, east, west, help, and quit.")
+                        print("The valid commands are: north, south, east, west, help, map, and quit.")
                 elif input == "quit":
                         break
+                elif input == "map":
+                        printMap()
                 else:
                               print("The command you have entered is invalid.")
                               continue
