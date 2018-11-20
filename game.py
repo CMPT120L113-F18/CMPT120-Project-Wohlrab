@@ -43,8 +43,9 @@ locNames=["Control Room", "North Hallway", "Armory", "Air Duct", "Uniform Closet
 
 hasBeen=[False, False, False, False, False, False, False, False]
 
-global loc
-loc = locNames[0]
+#global loc
+#loc = locNames[0]
+
 #Score and Input messages
 scoreMessage = "Your score is "
 inputMessage = "\n<What do you want to do next?>\n"
@@ -53,16 +54,16 @@ def userInput():
         givenInput = input(inputMessage).lower()
         return givenInput
 
-score=0
-global count
-count = -1
+#score=0
+#global count
+#count = -1
 
 def printScore(playerLocation):
-        global score
+        #global score
         if hasBeen[playerLocation] == False:
-                score=score+5
+                player["Player Score"]=player["Player Score"]+5
                 hasBeen[playerLocation] = True
-        print(scoreMessage + str(score))
+        print(scoreMessage + str(player["Player Score"]))
 
 
 def printLocation():
@@ -82,13 +83,13 @@ def printLocation():
                 location = "Food Closet"
         elif locales[7]:
                 location = "Hangar"
-        print("Current Location: " + str(loc) + ".")
+        print("Current Location: " + str(player["Player Location"]) + ".")
 
 
 def printCount():
-        global count
-        count=count+1
-        print("Moves made: " + str(count))
+        #global count
+        player["Moves Made"] = player["Moves Made"] + 1
+        print("Moves made: " + str(player["Moves Made"]))
 
 def printMap():
         print("        ---------------------------")
@@ -131,7 +132,7 @@ def ControlRoom():
         global South
         South = "Air Duct"
         global loc
-        loc = locNames[0]
+        player["Player Location"] = locNames[0]
         playerUpdate(0)
         print(locales[0])
 
@@ -145,7 +146,7 @@ def NorthHallway():
         global South
         South = "Control Room"
         global loc
-        loc = locNames[1]
+        player["Player Location"] = locNames[1]
         playerUpdate(1)
         print(locales[1])
 
@@ -159,7 +160,7 @@ def Armory():
         global South
         South = ""
         global loc
-        loc = locNames[2]
+        player["Player Location"] = locNames[2]
         playerUpdate(2)
         print(locales[2])
 
@@ -174,7 +175,7 @@ def AirDuct():
         global South
         South = "Uniform Closet"
         global loc
-        loc = locNames[3]
+        player["Player Location"] = locNames[3]
         playerUpdate(3)
         print(locales[3])
 
@@ -188,7 +189,7 @@ def UniformCloset():
         global South
         South = "South Hallway"
         global loc
-        loc = locNames[4]
+        player["Player Location"] = locNames[4]
         playerUpdate(4)
         print(locales[4])
 
@@ -202,7 +203,7 @@ def SouthHallway():
         global South
         South = ""
         global loc
-        loc = locNames[5]
+        player["Player Location"] = locNames[5]
         playerUpdate(5)
         print(locales[5])
 
@@ -216,7 +217,7 @@ def FoodCloset():
         global South
         South = ""
         global loc
-        loc = locNames[6]
+        player["Player Location"] = locNames[6]
         playerUpdate(6)
         print(locales[6])
 
@@ -230,7 +231,7 @@ def Hangar():
         global South
         South = ""
         global loc
-        loc = locNames[7]
+        player["Player Location"] = locNames[7]
         playerUpdate(7)
         print(locales[7])
 
@@ -292,13 +293,21 @@ def playGame():
                 else:
                               print("The command you have entered is invalid.")
                               continue
-                if count == 15:
+                if player["Moves Made"] == 15:
                         print("You have been caught! Game Over!")
                         break
                 else:
                         continue
 
 #In current state of game, player must quit when reaching "hangar" for dialogue to flow.
+
+player = {
+        "Player Name": "person",
+        "Player Gender": "gender",
+        "Player Score": 0,
+        "Player Location": locNames[0],
+        "Moves Made": -1
+        }
 
 #end the game and show credits
 def EndGame():
