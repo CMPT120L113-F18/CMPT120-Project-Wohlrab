@@ -102,30 +102,8 @@ def printMap():
 
 
 def printLocation():
-        if locales[0]:
-                location = "Control Room"
-        elif locales[1]:
-                location = "North Hallway"
-        elif locales[2]:
-                location = "Armory"
-        elif locales[3]:
-                location = "Air Duct"
-        elif locales[4]:
-                location = "Uniform Closet"
-        elif locales[5]:
-                location = "South Hallway"
-        elif locales[6]:
-                location = "Food Closet"
-        elif locales[7]:
-                location = "Hangar"
-        elif locales[8]:
-                location = "Medical Bay"
-        elif locales[9]:
-                location = "Library"
-        print("Current Location: " + str(player["Player Location"]) + ".")
-        
+        print("Current Location: " + str(locNames[player["Player Location"]][0]) + ".")
              
-
 def playerUpdate(playerLocation):
         printLocation()
         printScore(playerLocation)
@@ -150,7 +128,7 @@ def ControlRoom():
         West = "Armory"
         global South
         South = "Air Duct"
-        player["Player Location"] = locNames[0][0]
+        player["Player Location"] = 0
         item = locNames[0][1]
         playerUpdate(0)
         print(locales[0])
@@ -165,7 +143,7 @@ def NorthHallway():
         West = ""
         global South
         South = "Control Room"
-        player["Player Location"] = locNames[1][0]
+        player["Player Location"] = 1
         playerUpdate(1)
         print(locales[1])
        
@@ -179,7 +157,7 @@ def Armory():
         West = ""
         global South
         South = ""
-        player["Player Location"] = locNames[2][0]
+        player["Player Location"] = 2
         playerUpdate(2)
         print(locales[2])
 
@@ -194,7 +172,7 @@ def AirDuct():
         West = ""
         global South
         South = "Uniform Closet"
-        player["Player Location"] = locNames[3][0]
+        player["Player Location"] = 3
         playerUpdate(3)
         print(locales[3])
 
@@ -208,7 +186,7 @@ def UniformCloset():
         West = ""
         global South
         South = "South Hallway"
-        player["Player Location"] = locNames[4][0]
+        player["Player Location"] = 4
         playerUpdate(4)
         print(locales[4])
 
@@ -222,7 +200,7 @@ def SouthHallway():
         West = "Food Closet"
         global South
         South = ""
-        player["Player Location"] = locNames[5][0]
+        player["Player Location"] = 5
         playerUpdate(5)
         print(locales[5])
 
@@ -235,7 +213,7 @@ def FoodCloset():
         West = ""
         global South
         South = ""
-        player["Player Location"] = locNames[6][0]
+        player["Player Location"] = 6
         playerUpdate(6)
         print(locales[6])
 
@@ -249,7 +227,7 @@ def Hangar():
         West = "South Hallway"
         global South
         South = ""
-        player["Player Location"] = locNames[7][0]
+        player["Player Location"] = 7
         playerUpdate(7)
         print(locales[7])
 
@@ -263,7 +241,7 @@ def MedicalBay():
         West = "North Hallway"
         global South
         South = ""
-        player["Player Location"] = locNames[8][0]
+        player["Player Location"] = 8
         playerUpdate(8)
         print(locales[8])
 
@@ -277,7 +255,7 @@ def Library():
         West = "Control Room"
         global South
         South = ""
-        player["Player Location"] = locNames[9][0]
+        player["Player Location"] = 9
         playerUpdate(9)
         print(locales[9])
 
@@ -337,12 +315,24 @@ def playGame():
                         else:
                                 print("You cannot go south here.")
                 elif input == "help":
-                        print("The valid commands are: north, south, east, west, help, map, and quit.")
+                        print("The valid commands are: north, south, east, west, help, map, take, and quit.")
                 elif input == "quit":
                         break
                 elif input == "map":
-                        printMap()
-                        
+                        hasMap = False
+                        for i in range(0, len(player["Inventory"])):
+                                if player["Inventory"][i] == "Map":
+                                        hasMap = True;
+                                        printMap()
+                                        break
+                        if not hasMap:
+                                print("You do not have the map")
+                elif input == "take":
+                        if locNames[player["Player Location"]][1] != None:
+                                player["Inventory"].append(locNames[player["Player Location"]][1])
+                                locNames[player["Player Location"]][1] = None
+                        elif locNames[player["Player Location"]][1] == None:
+                                print("There is no item to take here")                               
                 else:
                               print("The command you have entered is invalid.")
                               continue
@@ -359,9 +349,9 @@ player = {
         "Player Gender": "gender",
         "Player Score": 0,
         "Player Location": locNames[0],
-        "Moves Made": -1
+        "Moves Made": -1,
+        "Inventory": []
         }
-
 
               
 #end the game and show credits
