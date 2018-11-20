@@ -30,18 +30,20 @@ def GameStart():
         input(introductionMessage)
 
 #store locales in list
-locales=["You are standing in the empty control room. There is an air duct on the south wall, a door on the west wall, and strange looking tool laying on the desk.",
+locales=["You are standing in the empty control room. There is an air duct on the south wall, doors on the east and west walls, and strange looking tool laying on the desk.",
          "Going through the North door, you find yourself back in the hallway you came from.",
          "By going through the West door, you arrive in a small armory. Surrounding you are numerous weapons and shields.",
          "Using the tool, you pry the vent from the duct. It's dark inside, but you can just make out the path in front of you. There is another vent straight ahead.",
          "You use the tool to pry open the vent, and find yourself inside a storage closet containing Storm Trooper uniforms and a single exit door on the south wall.",
          "Through the door you find a hallway with Storm Troopers heading East down the hall. There is another corridor in the Eastern direction of the hallway.",
          "You find yourself inside a food storage room. The walls are lined with cans and snacks.",
-         "Following the crowd, you find your way to the ship's vehicle hangar. There are Rebels and Storm-troopers fighting closeby, and an empty tie fighter on the east wall."]
+         "Following the crowd, you find your way to the ship's vehicle hangar. There are Rebels and Storm-troopers fighting closeby, and an empty tie fighter on the east wall.",
+         "The room is filled with medical tools and has a large medical table in the center. There are med-paks lying on a nearby table.",
+         "There are books lining the walls. You notice a leather-bound book on a nearby shelf. It seems to have been recently opened."]
 
-locNames=["Control Room", "North Hallway", "Armory", "Air Duct", "Uniform Closet", "South Hallway", "Food Closet", "Hangar"] 
+locNames=["Control Room", "North Hallway", "Armory", "Air Duct", "Uniform Closet", "South Hallway", "Food Closet", "Hangar", "Medical Bay", "Library"] 
 
-hasBeen=[False, False, False, False, False, False, False, False]
+hasBeen=[False, False, False, False, False, False, False, False, False, False]
 
 #global loc
 #loc = locNames[0]
@@ -66,6 +68,27 @@ def printScore(playerLocation):
         print(scoreMessage + str(player["Player Score"]))
 
 
+def printCount():
+        #global count
+        player["Moves Made"] = player["Moves Made"] + 1
+        print("Moves made: " + str(player["Moves Made"]))
+
+def printMap():
+        print("        ----------------------------------------")
+        print("        |      North Hallway      | Medical Bay |")
+        print("        -----------------------------------------")
+        print("             |             |       ")
+        print("     --------|Control Room |-------")
+        print("    | Armory |             |Library|")
+        print("     -------------------------------")
+        print("             | Air Duct |            ")
+        print("             ----------------      ")
+        print("             |Uniform Closet|      ")
+        print(" -------------------------------------")
+        print(" |Food Closet| North Hallway | Hangar |")
+        print(" --------------------------------------")
+
+
 def printLocation():
         if locales[0]:
                 location = "Control Room"
@@ -83,28 +106,11 @@ def printLocation():
                 location = "Food Closet"
         elif locales[7]:
                 location = "Hangar"
+        elif locales[8]:
+                location = "Medical Bay"
+        elif locales[9]:
+                location = "Library"
         print("Current Location: " + str(player["Player Location"]) + ".")
-
-
-def printCount():
-        #global count
-        player["Moves Made"] = player["Moves Made"] + 1
-        print("Moves made: " + str(player["Moves Made"]))
-
-def printMap():
-        print("        ---------------------------")
-        print("        |      North Hallway      |")
-        print("        ---------------------------")
-        print("             |             |       ")
-        print("     --------|Control Room |       ")
-        print("    | Armory |             |       ")
-        print("     -----------------------       ")
-        print("             | Air Duct |            ")
-        print("             ----------------      ")
-        print("             |Uniform Closet|      ")
-        print(" -------------------------------------")
-        print(" |Food Closet| North Hallway | Hangar |")
-        print(" --------------------------------------")
         
              
 
@@ -126,12 +132,11 @@ def ControlRoom():
         global North
         North = "North Hallway"
         global East
-        East = ""
+        East = "Library"
         global West
         West = "Armory"
         global South
         South = "Air Duct"
-        global loc
         player["Player Location"] = locNames[0]
         playerUpdate(0)
         print(locales[0])
@@ -140,12 +145,11 @@ def NorthHallway():
         global North
         North = ""
         global East
-        East = ""
+        East = "Medical Bay"
         global West
         West = ""
         global South
         South = "Control Room"
-        global loc
         player["Player Location"] = locNames[1]
         playerUpdate(1)
         print(locales[1])
@@ -159,7 +163,6 @@ def Armory():
         West = ""
         global South
         South = ""
-        global loc
         player["Player Location"] = locNames[2]
         playerUpdate(2)
         print(locales[2])
@@ -174,7 +177,6 @@ def AirDuct():
         West = ""
         global South
         South = "Uniform Closet"
-        global loc
         player["Player Location"] = locNames[3]
         playerUpdate(3)
         print(locales[3])
@@ -188,7 +190,6 @@ def UniformCloset():
         West = ""
         global South
         South = "South Hallway"
-        global loc
         player["Player Location"] = locNames[4]
         playerUpdate(4)
         print(locales[4])
@@ -202,7 +203,6 @@ def SouthHallway():
         West = "Food Closet"
         global South
         South = ""
-        global loc
         player["Player Location"] = locNames[5]
         playerUpdate(5)
         print(locales[5])
@@ -216,7 +216,6 @@ def FoodCloset():
         West = ""
         global South
         South = ""
-        global loc
         player["Player Location"] = locNames[6]
         playerUpdate(6)
         print(locales[6])
@@ -230,11 +229,35 @@ def Hangar():
         West = "South Hallway"
         global South
         South = ""
-        global loc
         player["Player Location"] = locNames[7]
         playerUpdate(7)
         print(locales[7])
 
+def MedicalBay():
+        global North
+        North = ""
+        global East
+        East = ""
+        global West
+        West = "North Hallway"
+        global South
+        South = ""
+        player["Player Location"] = locNames[8]
+        playerUpdate(8)
+        print(locales[8])
+
+def Library():
+        global North
+        North = ""
+        global East
+        East = ""
+        global West
+        West = "Control Room"
+        global South
+        South = ""
+        player["Player Location"] = locNames[9]
+        playerUpdate(9)
+        print(locales[9])
 
 def playGame():
         Game = True
@@ -260,7 +283,10 @@ def playGame():
                                 SouthHallway()
                         elif East == "Hangar":
                                 Hangar()
-                       
+                        elif East == "Medical Bay":
+                                MedicalBay()
+                        elif East == "Library":
+                                Library()
                         else:
                                 print("You cannot go east here.")
                 elif input == "west":
@@ -270,7 +296,10 @@ def playGame():
                                 SouthHallway()
                         elif West == "Food Closet":
                                 FoodCloset()
-                       
+                        elif West == "North Hallway":
+                                NorthHallway()
+                        elif West == "Control Room":
+                                ControlRoom()
                         else:
                                 print("You cannot go west here.")
                 elif input == "south":
