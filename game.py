@@ -39,13 +39,14 @@ class Location:
 controlRoom = Location("Control Room", "Map", "You are standing in the empty control room. There is an air duct on the south wall, doors on the east and west walls, and a rolled up scroll laying on the desk.", False)
 northHallway = Location("North Hallway", None, "You find yourself back in the hallway you exited before.", False)
 armory = Location("Armory", "Tool", "You arrive in a small armory. Surrounding you are numerous weapons and shields. There's a strange looking tool on the floor ahead of you.", False)
-airDuct = Location("Air Duct", None, "You pry the vent from the duct. It's dark inside, but you can just make out the path in front of you. There is another vent straight ahead.", False)
-uniformCloset = Location("Uniform Closet", None, "You pry open the vent, and find yourself inside a storage closet containing Storm Trooper uniforms and a single exit door on the south wall.", False)
+airDuct = Location("Air Duct", None, "You use the tool to pry the vent from the duct. It's dark inside, but you can just make out the path in front of you. There is another vent straight ahead.", False)
+uniformCloset = Location("Uniform Closet", "Key", "You use the tool again to pry open the vent, and find yourself inside a storage closet containing Storm Trooper uniforms and a single exit door on the south wall. You see a glistening sparkle coming from a nearby shelf.", False)
 southHallway = Location("South Hallway", None, "You find a hallway with Storm Troopers heading East down the hall. There is another corridor in the Eastern direction of the hallway.", False)
 foodCloset = Location("Food Closet", "Can", "You find yourself inside a food storage room. The walls are lined with cans and snacks.", False)
 hangar = Location("Hangar", None, "You find your way to the ship's vehicle hangar. There are Rebels and Storm-troopers fighting closeby, and an empty tie fighter on the east wall.", False)
 medicalBay = Location("Medical Bay", "Med-pak", "The room is filled with medical tools and has a large medical table in the center. There are med-paks lying on a nearby table.", False)
 library = Location("Library", "Book", "There are books lining the walls. You notice a leather-bound book on a nearby shelf. It seems to have been recently opened.", False)
+tieFighter = Location("Tie Fighter", None, "Getting into the tie fighter, you turn the key and start the engine. Flying away from the vessel, you look out into space and feel hopeful for the future of the galaxy.", False)
 
 
 #global loc
@@ -90,9 +91,9 @@ def printMap():
         print("             | Air Duct |            ")
         print("             ----------------      ")
         print("             |Uniform Closet|      ")
-        print(" -------------------------------------")
-        print(" |Food Closet| North Hallway | Hangar |")
-        print(" --------------------------------------")
+        print(" ---------------------------------------------------")
+        print(" |Food Closet| North Hallway | Hangar | Tie Fighter |")
+        print(" ----------------------------------------------------")
 
 
 def printLocation():
@@ -106,6 +107,9 @@ def playerUpdate(playerLocation):
 
 def useTool():
         print("Uses Tool")
+
+def useKey():
+        print("Uses Key")
         
 
 North=""
@@ -218,7 +222,7 @@ def Hangar():
         global North
         North = ""
         global East
-        East = ""
+        East = "Tie Fighter"
         global West
         West = "South Hallway"
         global South
@@ -255,6 +259,19 @@ def Library():
         playerUpdate(P1.location)
         print(P1.location.message)
 
+def TieFighter():
+        global North
+        North = ""
+        global East
+        East = ""
+        global West
+        West = "Hangar"
+        global South
+        South = ""
+        P1.location = tieFighter
+        playerUpdate(P1.location)
+        print(P1.location.message)
+
 
 def playGame():
         Game = True
@@ -284,6 +301,11 @@ def playGame():
                                 MedicalBay()
                         elif East == "Library":
                                 Library()
+                        elif East == "Tie Fighter":
+                                if P1.inventory.count("Key") > 0:
+                                        TieFighter()
+                                else:
+                                        print("The vehicle is locked. There must be a key around here somewhere.")
                         else:
                                 print("You cannot go east here.")
                 elif input == "west":
@@ -297,13 +319,18 @@ def playGame():
                                 NorthHallway()
                         elif West == "Control Room":
                                 ControlRoom()
+                        elif West == "Hangar":
+                                Hangar()
                         else:
                                 print("You cannot go west here.")
                 elif input == "south":
                         if South == "Control Room":
                                 ControlRoom()
                         elif South == "Air Duct":
-                                AirDuct()
+                                if P1.inventory.count("Tool") > 0:
+                                        AirDuct()
+                                else:
+                                        print("The vent is sealed. Maybe you could find a tool somewhere that would help you get through.")
                         elif South == "Uniform Closet":
                                 UniformCloset()
                         elif South == "South Hallway":
@@ -357,22 +384,26 @@ def playGame():
                         elif len(input.split(" ")) > 1 and input.split(" ")[1] == "book":
                                 if P1.inventory.count("Book") > 0:
                                         P1.score = P1.score + 10
-                                        print("Reading about battle strategies, you improve your stealthiness and increase your points by 10.")   
+                                        print("Reading about battle strategies, you improve your stealthiness and increase your points by 10.")
+                        elif len(input.split(" ")) > 1 and input.split(" ")[1] == "key":
+                                if P1.inventory.count("Key") > 0:
+                                        useKey()                
                                 else:
                                         print("You do not have this item.")
                         
                 else:
                               print("The command you have entered is invalid.")
                               continue
+                if P1.location.room == "Tie Fighter":
+                        print("You have won the game!")
+                        break
                 P1.moves = P1.moves + 1
-                if P1.moves == 18:
+                if P1.moves == 35:
                         print("You have been caught! Game Over!")
                         break
                 else:
                         continue
 
-
-#In current state of game, player must quit when reaching "hangar" for dialogue to flow.
 
 class Player:
         def __init__(self, name, gender, score,location, moves, inventory):
@@ -398,7 +429,7 @@ P1 = Player("", "", 0, controlRoom, 0, [])
               
 #end the game and show credits
 def EndGame():
-        print("Getting into the tie fighter, you turn the key and start the engine. Flying away from the vessel, you look out into space and feel hopeful for the future of the galaxy. Game over!")
+        print("Play again soon!")
         print("\nCopyright (c) 2018 Ashley Wohlrab, Ashley.Wohlrab1@marist.edu")
 
        
