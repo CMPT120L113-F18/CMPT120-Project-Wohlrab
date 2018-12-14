@@ -326,7 +326,9 @@ def playGame():
                                 P1.inventory.append(P1.location.item)
                                 P1.location.item = None
                         elif P1.location.item == None:
-                                print("There is no item to take here")                               
+                                print("There is no item to take here")
+                elif input == "inventory":
+                        print(P1.inventory)
                 else:
                               print("The command you have entered is invalid.")
                               continue
