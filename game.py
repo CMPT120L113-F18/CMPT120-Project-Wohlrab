@@ -74,7 +74,6 @@ def printScore(playerLocation):
 
 def printCount():
         #global count
-        P1.moves = P1.moves + 1
         print("Moves made: " + str(P1.moves))
 
 def printItem(playerLocation):
@@ -332,11 +331,13 @@ def playGame():
                 else:
                               print("The command you have entered is invalid.")
                               continue
+                P1.moves = P1.moves + 1
                 if P1.moves == 18:
                         print("You have been caught! Game Over!")
                         break
                 else:
                         continue
+
 
 #In current state of game, player must quit when reaching "hangar" for dialogue to flow.
 
@@ -349,7 +350,7 @@ class Player:
                 self.moves = moves
                 self.inventory = inventory
 
-P1 = Player("", "", 0, controlRoom, -1, [])
+P1 = Player("", "", 0, controlRoom, 0, [])
 
 
 #player = {
@@ -370,6 +371,11 @@ def EndGame():
        
 def main():
         GameStart()
-        playGame()
+        keepPlaying = True
+        while keepPlaying:
+                playGame()
+                userInput = input("Would you like to play again? (Y/N)")
+                if userInput == "N":
+                        keepPlaying = False  
         EndGame()
 main()
