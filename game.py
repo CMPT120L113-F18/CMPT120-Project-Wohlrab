@@ -103,6 +103,9 @@ def playerUpdate(playerLocation):
         printScore(playerLocation)
         printCount()
         printItem(playerLocation)
+
+def useTool():
+        print("Uses Tool")
         
 
 North=""
@@ -328,6 +331,36 @@ def playGame():
                                 print("There is no item to take here")
                 elif input == "inventory":
                         print(P1.inventory)
+                elif input.split(" ")[0] == "use":
+                        if len(input.split(" ")) > 1 and input.split(" ")[1] == "map":
+                                if P1.inventory.count("Map") > 0:
+                                        printMap()
+                                else:
+                                        print("You do not have this item.")
+                        elif len(input.split(" ")) > 1 and input.split(" ")[1] == "tool":
+                                if P1.inventory.count("Tool") > 0:
+                                        useTool()
+                                else:
+                                        print("You do not have this item.")
+                        elif len(input.split(" ")) > 1 and input.split(" ")[1] == "can":
+                                if P1.inventory.count("Can") > 0:
+                                        P1.score = P1.score +10
+                                        print("You consume the delicious canned food and your score goes up by ten points!")
+                                else:
+                                        print("You do not have this item.")
+                        elif len(input.split(" ")) > 1 and input.split(" ")[1] == "med-pak":
+                                if P1.inventory.count("Med-pak") > 0:
+                                        P1.score = P1.score + 10
+                                        print("You heal previous battle wounds and your score increases by 10 points.")
+                                else:
+                                        print("You do not have this item.")
+                        elif len(input.split(" ")) > 1 and input.split(" ")[1] == "book":
+                                if P1.inventory.count("Book") > 0:
+                                        P1.score = P1.score + 10
+                                        print("Reading about battle strategies, you improve your stealthiness and increase your points by 10.")   
+                                else:
+                                        print("You do not have this item.")
+                        
                 else:
                               print("The command you have entered is invalid.")
                               continue
