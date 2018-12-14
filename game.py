@@ -9,10 +9,10 @@ def title():
               "\n========\n")
 
 def playerCust():
-        person = input("What is your name?")
-        gender = input("What is your gender?")
+        P1.name = input("What is your name?")
+        P1.gender = input("What is your gender?")
         print(" ")
-        print("Hello", person)
+        print("Hello", P1.name)
         print("The force is strong with you. Good luck!")
         print(" ")
 
@@ -29,30 +29,24 @@ def GameStart():
         input(StarWarsMessage)
         input(introductionMessage)
 
-#store locales in list
-locales=["You are standing in the empty control room. There is an air duct on the south wall, doors on the east and west walls, and a rolled up scroll laying on the desk.",
-         "You find yourself back in the hallway you exited before.",
-         "You arrive in a small armory. Surrounding you are numerous weapons and shields. There's a strange looking tool on the floor ahead of you.",
-         "You pry the vent from the duct. It's dark inside, but you can just make out the path in front of you. There is another vent straight ahead.",
-         "You pry open the vent, and find yourself inside a storage closet containing Storm Trooper uniforms and a single exit door on the south wall.",
-         "You find a hallway with Storm Troopers heading East down the hall. There is another corridor in the Eastern direction of the hallway.",
-         "You find yourself inside a food storage room. The walls are lined with cans and snacks.",
-         "You find your way to the ship's vehicle hangar. There are Rebels and Storm-troopers fighting closeby, and an empty tie fighter on the east wall.",
-         "The room is filled with medical tools and has a large medical table in the center. There are med-paks lying on a nearby table.",
-         "There are books lining the walls. You notice a leather-bound book on a nearby shelf. It seems to have been recently opened."]
+class Location:
+        def __init__(self, room, item, message, visited):
+                self.room = room
+                self.item = item
+                self.message = message
+                self.visited = visited
+                
+controlRoom = Location("Control Room", "Map", "You are standing in the empty control room. There is an air duct on the south wall, doors on the east and west walls, and a rolled up scroll laying on the desk.", False)
+northHallway = Location("North Hallway", None, "You find yourself back in the hallway you exited before.", False)
+armory = Location("Armory", "Tool", "You arrive in a small armory. Surrounding you are numerous weapons and shields. There's a strange looking tool on the floor ahead of you.", False)
+airDuct = Location("Air Duct", None, "You pry the vent from the duct. It's dark inside, but you can just make out the path in front of you. There is another vent straight ahead.", False)
+uniformCloset = Location("Uniform Closet", None, "You pry open the vent, and find yourself inside a storage closet containing Storm Trooper uniforms and a single exit door on the south wall.", False)
+southHallway = Location("South Hallway", None, "You find a hallway with Storm Troopers heading East down the hall. There is another corridor in the Eastern direction of the hallway.", False)
+foodCloset = Location("Food Closet", "Can", "You find yourself inside a food storage room. The walls are lined with cans and snacks.", False)
+hangar = Location("Hangar", None, "You find your way to the ship's vehicle hangar. There are Rebels and Storm-troopers fighting closeby, and an empty tie fighter on the east wall.", False)
+medicalBay = Location("Medical Bay", "Med-pak", "The room is filled with medical tools and has a large medical table in the center. There are med-paks lying on a nearby table.", False)
+library = Location("Library", "Book", "There are books lining the walls. You notice a leather-bound book on a nearby shelf. It seems to have been recently opened.", False)
 
-locNames=[["Control Room", "Map"],
-          ["North Hallway", None],
-          ["Armory", "Tool"],
-          ["Air Duct", None],
-          ["Uniform Closet", None],
-          ["South Hallway", None],
-          ["Food Closet", "Can"],
-          ["Hangar", None],
-          ["Medical Bay", "Med-pak"],
-          ["Library", "Book"]] 
-
-hasBeen=[False, False, False, False, False, False, False, False, False, False]
 
 #global loc
 #loc = locNames[0]
@@ -65,25 +59,26 @@ def userInput():
         givenInput = input(inputMessage).lower()
         return givenInput
 
+
 #score=0
 #global count
 #count = -1
 
 def printScore(playerLocation):
         #global score
-        if hasBeen[playerLocation] == False:
-                player["Player Score"]=player["Player Score"]+5
-                hasBeen[playerLocation] = True
-        print(scoreMessage + str(player["Player Score"]))
+        if P1.location.visited == False:
+                P1.score = P1.score + 5
+                P1.location.visited = True
+        print(scoreMessage + str(P1.score))
 
 
 def printCount():
         #global count
-        player["Moves Made"] = player["Moves Made"] + 1
-        print("Moves made: " + str(player["Moves Made"]))
+        P1.moves = P1.moves + 1
+        print("Moves made: " + str(P1.moves))
 
 def printItem(playerLocation):
-        print("Item located at this location: " + str(locNames[playerLocation][1]) + ".")
+        print("Item located at this location: " + str(P1.location.item) + ".")
 
 def printMap():
         print("        ----------------------------------------")
@@ -102,7 +97,7 @@ def printMap():
 
 
 def printLocation():
-        print("Current Location: " + str(locNames[player["Player Location"]][0]) + ".")
+        print("Current Location: " + str(P1.location.room) + ".")
              
 def playerUpdate(playerLocation):
         printLocation()
@@ -128,10 +123,9 @@ def ControlRoom():
         West = "Armory"
         global South
         South = "Air Duct"
-        player["Player Location"] = 0
-        item = locNames[0][1]
-        playerUpdate(0)
-        print(locales[0])
+        P1.location = controlRoom
+        playerUpdate(P1.location)
+        print(P1.location.message)
         
 
 def NorthHallway():
@@ -143,9 +137,9 @@ def NorthHallway():
         West = ""
         global South
         South = "Control Room"
-        player["Player Location"] = 1
-        playerUpdate(1)
-        print(locales[1])
+        P1.location = northHallway
+        playerUpdate(P1.location)
+        print(P1.location.message)
        
 
 def Armory():
@@ -157,9 +151,9 @@ def Armory():
         West = ""
         global South
         South = ""
-        player["Player Location"] = 2
-        playerUpdate(2)
-        print(locales[2])
+        P1.location = armory
+        playerUpdate(P1.location)
+        print(P1.location.message)
 
 
 
@@ -172,9 +166,9 @@ def AirDuct():
         West = ""
         global South
         South = "Uniform Closet"
-        player["Player Location"] = 3
-        playerUpdate(3)
-        print(locales[3])
+        P1.location = airDuct
+        playerUpdate(P1.location)
+        print(P1.location.message)
 
 
 def UniformCloset():
@@ -186,9 +180,9 @@ def UniformCloset():
         West = ""
         global South
         South = "South Hallway"
-        player["Player Location"] = 4
-        playerUpdate(4)
-        print(locales[4])
+        P1.location = uniformCloset
+        playerUpdate(P1.location)
+        print(P1.location.message)
 
 
 def SouthHallway():
@@ -200,9 +194,9 @@ def SouthHallway():
         West = "Food Closet"
         global South
         South = ""
-        player["Player Location"] = 5
-        playerUpdate(5)
-        print(locales[5])
+        P1.location = southHallway
+        playerUpdate(P1.location)
+        print(P1.location.message)
 
 def FoodCloset():
         global North
@@ -213,9 +207,9 @@ def FoodCloset():
         West = ""
         global South
         South = ""
-        player["Player Location"] = 6
-        playerUpdate(6)
-        print(locales[6])
+        P1.location = foodCloset
+        playerUpdate(P1.location)
+        print(P1.location.message)
 
 
 def Hangar():
@@ -227,9 +221,9 @@ def Hangar():
         West = "South Hallway"
         global South
         South = ""
-        player["Player Location"] = 7
-        playerUpdate(7)
-        print(locales[7])
+        P1.location = hangar
+        playerUpdate(P1.location)
+        print(P1.location.message)
 
 
 def MedicalBay():
@@ -241,9 +235,9 @@ def MedicalBay():
         West = "North Hallway"
         global South
         South = ""
-        player["Player Location"] = 8
-        playerUpdate(8)
-        print(locales[8])
+        P1.location = medicalBay
+        playerUpdate(P1.location)
+        print(P1.location.message)
 
 
 def Library():
@@ -255,9 +249,9 @@ def Library():
         West = "Control Room"
         global South
         South = ""
-        player["Player Location"] = 9
-        playerUpdate(9)
-        print(locales[9])
+        P1.location = library
+        playerUpdate(P1.location)
+        print(P1.location.message)
 
 
 def playGame():
@@ -320,23 +314,23 @@ def playGame():
                         break
                 elif input == "map":
                         hasMap = False
-                        for i in range(0, len(player["Inventory"])):
-                                if player["Inventory"][i] == "Map":
+                        for i in range(0, len(P1.inventory)):
+                                if P1.inventory[i] == "Map":
                                         hasMap = True;
                                         printMap()
                                         break
                         if not hasMap:
                                 print("You do not have the map")
                 elif input == "take":
-                        if locNames[player["Player Location"]][1] != None:
-                                player["Inventory"].append(locNames[player["Player Location"]][1])
-                                locNames[player["Player Location"]][1] = None
-                        elif locNames[player["Player Location"]][1] == None:
+                        if P1.location.item != None:
+                                P1.inventory.append(P1.location.item)
+                                P1.location.item = None
+                        elif P1.location.item == None:
                                 print("There is no item to take here")                               
                 else:
                               print("The command you have entered is invalid.")
                               continue
-                if player["Moves Made"] == 18:
+                if P1.moves == 18:
                         print("You have been caught! Game Over!")
                         break
                 else:
@@ -344,14 +338,26 @@ def playGame():
 
 #In current state of game, player must quit when reaching "hangar" for dialogue to flow.
 
-player = {
-        "Player Name": "person",
-        "Player Gender": "gender",
-        "Player Score": 0,
-        "Player Location": locNames[0],
-        "Moves Made": -1,
-        "Inventory": []
-        }
+class Player:
+        def __init__(self, name, gender, score,location, moves, inventory):
+                self.name = name
+                self.gender = gender
+                self.score = score
+                self.location = location
+                self.moves = moves
+                self.inventory = inventory
+
+P1 = Player("", "", 0, controlRoom, -1, [])
+
+
+#player = {
+        #"Player Name": "person",
+        #"Player Gender": "gender",
+        #"Player Score": 0,
+        #"Player Location": locNames[0],
+        #"Moves Made": -1,
+        #"Inventory": []
+        #}
 
               
 #end the game and show credits
